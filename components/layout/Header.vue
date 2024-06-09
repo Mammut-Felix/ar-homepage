@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref, defineComponent } from 'vue'
 import type { MenuItem } from '~/types/menu/MenuItem'
+import type { LiveResponse } from '~/types/live/LiveResponse'
+
+const liveStream = await useFetch<LiveResponse>('/api/live', {
+  method: 'get'
+})
 
 const emptyMenuItem: MenuItem = {
   title: '',
@@ -105,8 +110,15 @@ defineComponent({
     <v-app-bar :height="headerHeight" class="lp-header mix-blend-mode" flat>
       <v-container class="maxWidth py-sm-4 py-0">
         <v-toolbar class="d-flex align-center" :height="headerHeight * 0.6">
-          <div class="">
+          <div>
             <Logo />
+            <NuxtLink
+              v-if="liveStream.data.value?.isLive"
+              to="https://twitch.tv/jennysview"
+              class="menu-link"
+            >
+              <span class="menu-text live-text">• LIVE</span>
+            </NuxtLink>
           </div>
           <div class="ml-auto d-flex menu-container" @click.stop="mobileMenu = !mobileMenu">
             <div class="menu-wrapper" :class="{ active: mobileMenu }">
@@ -122,6 +134,14 @@ defineComponent({
 </template>
 
 <style scoped lang="scss">
+.live-text {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ff0000 !important;
+  margin-left: 8px;
+  mix-blend-mode: unset !important;
+}
+
 .mix-blend-mode {
   mix-blend-mode: difference;
 }
