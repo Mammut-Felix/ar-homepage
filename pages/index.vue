@@ -1,9 +1,9 @@
 <script setup lang="ts">
-// import type { LiveResponse } from '~/types/live/LiveResponse'
+import type { LiveResponse } from '~/types/live/LiveResponse'
 
-// const liveStream = await useFetch<LiveResponse>('/api/live', {
-//   method: 'get'
-// })
+const liveStream = await useFetch<LiveResponse>('/api/live', {
+  method: 'get'
+})
 
 definePageMeta({
   layout: 'blank'
@@ -22,6 +22,7 @@ defineComponent({
     </Head>
     <div>
       <Hero />
+      <LiveStream v-if="liveStream.data.value?.isLive" />
       <Events />
       <Releases />
       <Social />
