@@ -11,30 +11,36 @@ export default defineEventHandler(async () => {
   let authToken = await storage.getItem('authToken')
 
   if (!authToken) {
+    const runtimeConfig = useRuntimeConfig()
+
     const { data } = await axios.post('https://id.twitch.tv/oauth2/token', null, {
       params: {
-        client_id: '80cvhb2dh1gzfvg0gbpb7lgjfvcve2',
-        client_secret: 'vw92qvme7wbnn8hce2z1illcaaplpg',
+        client_id: runtimeConfig.twitch.clientId,
+        client_secret: runtimeConfig.twitch.clientSecret,
         grant_type: 'client_credentials'
       }
     })
 
-    await storage.setItem('twitch:authToken', data.access_token, { ex: data.expires_in })
+    await storage.setItem('twitch:authToken', data.access_token, { ttl: data.expires_in })
 
     authToken = data.access_token
   }
 
+  const runtimeConfig = useRuntimeConfig()
+
   const { data } = await axios.get(
-    'https://api.twitch.tv/helix/streams?user_login=anastasia_rose_official&type=live',
+    'https://api.twitch.tv/helix/streams?user_login=jennysview&type=live',
     {
       headers: {
-        'Client-ID': '80cvhb2dh1gzfvg0gbpb7lgjfvcve2',
-        Authorization: 'Bearer h4ohrx00hc0mbcqvdapp275vu2ng2e'
+        'Client-ID': runtimeConfig.twitch.clientId,
+        Authorization: 'Bearer ' + authToken
       }
     }
   )
 
   if (data.data.length === 0) {
+    await storage.setItem('cache:api:live', { isLive: false }, { ttl: 60 })
+
     return {
       isLive: false
     }
@@ -51,7 +57,7 @@ export default defineEventHandler(async () => {
         thumbnailUrl: data.data[0].thumbnail_url
       }
     },
-    { ex: 60 }
+    { ttl: 60 }
   )
 
   return {
