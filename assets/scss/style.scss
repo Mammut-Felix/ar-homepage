@@ -1,0 +1,50 @@
+// @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  src:
+    local('Century Gothic'),
+    url(@/assets/fonts/CenturyGothic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Century Gothic Bold';
+  font-style: normal;
+  src:
+    local('Century Gothic Bold'),
+    url(@/assets/fonts/CenturyGothicBold.ttf) format('truetype');
+}
+
+@import './variables';
+@import './override';
+
+@import 'vuetify/styles/main.sass';
+
+@import './layout/text';
+@import './layout/reboot';
+@import './layout/container';
+@import './layout/topbar';
+@import './layout/horizontal';
+@import './layout/dark';
+
+@import './components/general';
+@import './components/header';
+
+@import './components/vuetify/VBreadcrumb';
+@import './components/vuetify/VAlert';
+@import './components/vuetify/VButtons';
+@import './components/vuetify/VCard';
+@import './components/vuetify/VCarousel';
+@import './components/vuetify/VField';
+@import './components/vuetify/VList';
+@import './components/vuetify/VInput';
+@import './components/vuetify/VNavigationDrawer';
+@import './components/vuetify/VShadow';
+@import './components/vuetify/VSwitch';
+@import './components/vuetify/VSelectionControl';
+@import './components/vuetify/VTextField';
+@import './components/vuetify/VTextarea';
+@import './components/vuetify/VTabs';
+@import './components/vuetify/VTable';
+@import './components/vuetify/VExpansionpanel';
+@import './components/vuetify/VTooltip';

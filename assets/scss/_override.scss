@@ -1,0 +1,35 @@
+html {
+  .bg-success {
+    color: white !important;
+  }
+
+  .bg-primary {
+    color: $white !important;
+  }
+
+  .bg-secondary {
+    color: $white !important;
+  }
+
+  .bg-warning {
+    color: $white !important;
+  }
+}
+
+.border,
+.v-divider {
+  border-color: rgba(var(--v-border-color), 1) !important;
+  opacity: 1;
+}
+
+.v-app-bar.v-toolbar {
+  background-color: transparent !important;
+}
+
+body,
+html {
+  font-family: $body-font-family !important;
+  background-color: rgba(var(--v-theme-background), 1) !important;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+}
